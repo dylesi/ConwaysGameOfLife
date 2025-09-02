@@ -51,7 +51,7 @@ def drawAutomataArray(grid):
     rectArray = []
     for row in grid:
         for rect, alive in row:
-            pygame.draw.rect(screen, (100, 100, 100), rect, width=1)
+            pygame.draw.rect(screen, (24, 24, 24), rect, width=1)
             if alive:
                 drawnRect = pygame.draw.rect(screen, "White", rect)
                 rectArray.append(drawnRect)
@@ -66,6 +66,19 @@ neighbourArray = [
     ( 0, -1),          ( 0, 1),
     ( 1, -1), ( 1, 0), ( 1, 1),
 ]
+
+def resetArray(arr):
+    resetArr = []
+    for row in arr:
+        returnRow = []
+        for rect, boolVal in row:
+            if boolVal:
+                boolVal = False
+                returnRow.append([rect, boolVal])
+            else:
+                returnRow.append([rect, boolVal])
+        resetArr.append(returnRow)
+    return resetArr
 
 def validateAutomataArray(grid):
     newGrid = []
@@ -104,7 +117,7 @@ def printArray(string, arr):
         print(arr[item:item + automataAmountX])
 
 
-printArray("before", automataArray)
+#printArray("before", automataArray)
 
 
 isDrawing = False
@@ -128,12 +141,19 @@ while isRunning:
                 else:
                     pygame.time.set_timer(DRAW_EVENT, 50)
                     isDrawing = True
-                print(isDrawing)
 
             if event.key == pygame.K_LCTRL:
                 newArr = validateAutomataArray(automataArray)
                 drawAutomataArray(newArr)
                 automataArray = newArr
+
+            if event.key == pygame.K_r:
+                isDrawing = False
+                screen.fill((0,0,0))
+                pygame.time.set_timer(DRAW_EVENT, 0)
+                resetedArray = resetArray(automataArray)
+                automataArray = resetedArray
+                drawAutomataArray(resetedArray)
 
         if event.type == DRAW_EVENT and isDrawing:
             screen.fill((0,0,0))
