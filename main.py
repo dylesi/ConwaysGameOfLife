@@ -14,11 +14,11 @@ isRunning = True
 
 
 
-automataAmountX = 50
-automataAmountY = 50
+automataAmountX = 200
+automataAmountY = 100
 padding = 1
-automataWidth = 15
-automataHeight = 15
+automataWidth = 7
+automataHeight = 7
 automataRect = (automataWidth, automataHeight)
 
 #drawingSurface.fill((100,100,100))
@@ -37,8 +37,8 @@ def createAutomataArray():
     for i in range(automataAmountY):
         row = []
         for j in range(automataAmountX):
-            automataPosX = j * (automataWidth + padding) + 100
-            automataPosY = i * (automataHeight + padding) + 100
+            automataPosX = j * (automataWidth + padding) + 10
+            automataPosY = i * (automataHeight + padding) + 10
             rect = pygame.Rect(automataPosX, automataPosY, automataWidth, automataHeight)
             row.append([rect, False])
         grid.append(row)
@@ -162,23 +162,6 @@ while isRunning:
             drawAutomataArray(newArr)
             automataArray = newArr
 
-        # if event.type == pygame.MOUSEBUTTONDOWN:
-        #     mousePos = event.pos
-        #     isDrawing = False
-        #     pygame.time.set_timer(DRAW_EVENT, 0)
-
-        #     for i, row in enumerate(grid):
-        #         for j, item in enumerate(row):
-        #             if item[0].collidepoint(mousePos):
-        #                 screen.fill((0,0,0))
-        #                 automataArray
-        #                 clickedCell = automataArray[i][j][1]
-        #                 if clickedCell:
-        #                     automataArray[i][j][1] = False
-        #                 elif clickedCell == False:
-        #                     automataArray[i][j][1] = True
-                        
-        #                 drawAutomataArray(automataArray)
 
         if event.type == pygame.MOUSEBUTTONDOWN:
 
