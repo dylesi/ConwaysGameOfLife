@@ -14,22 +14,19 @@ isRunning = True
 
 
 
-automataAmountX = 50
-automataAmountY = 50
+automataAmountX = 75
+automataAmountY = 75
 padding = 1
 automataWidth = 15
 automataHeight = 15
 automataRect = (automataWidth, automataHeight)
 
-#drawingSurface.fill((100,100,100))
 arrayWidth = (automataWidth * automataAmountX) + (padding * automataAmountX)
 arrayHeight = (automataHeight * automataAmountY) + (padding * automataAmountY)
-#print(f"arraywidth {arrayWidth} arrheight: {arrayHeight}")
-centerOfScreenAndArray = (screenWidth / 2 - arrayWidth / 2, screenHeight / 2 - arrayHeight / 2)
 
+centerOfScreenAndArray = (screenWidth / 2 - arrayWidth / 2, screenHeight / 2 - arrayHeight / 2)
 drawingSurface = pygame.Surface((arrayWidth,arrayHeight))
-#pygame.draw.rect(drawingSurface, "White", (0, 0, 55, 55), width=1)
-#pygame.draw.rect(TestSurface, "White", (0, 0, arrayWidth, arrayHeight), width=5)
+
 
 def createAutomataArray():
     global grid
@@ -37,8 +34,8 @@ def createAutomataArray():
     for i in range(automataAmountY):
         row = []
         for j in range(automataAmountX):
-            automataPosX = j * (automataWidth + padding) + 100
-            automataPosY = i * (automataHeight + padding) + 100
+            automataPosX = j * (automataWidth + padding) + 10
+            automataPosY = i * (automataHeight + padding) + 10
             rect = pygame.Rect(automataPosX, automataPosY, automataWidth, automataHeight)
             row.append([rect, False])
         grid.append(row)
@@ -46,12 +43,12 @@ def createAutomataArray():
 
 
 def drawAutomataArray(grid):
-    drawingSurface.fill((0, 0, 0))  # clear before drawing
+    drawingSurface.fill((0, 0, 0)) 
     global rectArray
     rectArray = []
     for row in grid:
         for rect, alive in row:
-            pygame.draw.rect(screen, (24, 24, 24), rect, width=1)
+            pygame.draw.rect(screen, (80, 80, 80), rect, width=1)
             if alive:
                 drawnRect = pygame.draw.rect(screen, "White", rect)
                 rectArray.append(drawnRect)
@@ -111,10 +108,10 @@ automataArray = createAutomataArray()
 drawAutomataArray(automataArray)
 
 
-def printArray(string, arr):
-    print(f"Array {string}: ")
-    for item in range(0, len(arr), automataAmountX):
-        print(arr[item:item + automataAmountX])
+# def printArray(string, arr):
+#     print(f"Array {string}: ")
+#     for item in range(0, len(arr), automataAmountX):
+#         print(arr[item:item + automataAmountX])
 
 
 #printArray("before", automataArray)
@@ -180,7 +177,7 @@ while isRunning:
                         drawAutomataArray(automataArray)
 
 
-    clock.tick(60)
+    #clock.tick(60)
 
     #pygame.Surface.blit(screen,drawingSurface, (centerOfScreenAndArray))
     #pygame.Surface.blit(screen,drawingSurface, ((100, 100)))
