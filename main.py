@@ -46,7 +46,7 @@ def createAutomataArray():
 
 
 def drawAutomataArray(grid):
-    drawingSurface.fill((0, 0, 0))  # clear before drawing
+    screen.fill((0, 0, 0))
     global rectArray
     rectArray = []
     for row in grid:
@@ -121,6 +121,7 @@ def printArray(string, arr):
 
 
 isDrawing = False
+isDragging = False
 DRAW_EVENT = pygame.event.custom_type()
 
 while isRunning:
@@ -161,22 +162,53 @@ while isRunning:
             drawAutomataArray(newArr)
             automataArray = newArr
 
-        if event.type == pygame.MOUSEBUTTONDOWN:
-            mousePos = event.pos
-            isDrawing = False
-            pygame.time.set_timer(DRAW_EVENT, 0)
+        # if event.type == pygame.MOUSEBUTTONDOWN:
+        #     mousePos = event.pos
+        #     isDrawing = False
+        #     pygame.time.set_timer(DRAW_EVENT, 0)
 
+        #     for i, row in enumerate(grid):
+        #         for j, item in enumerate(row):
+        #             if item[0].collidepoint(mousePos):
+        #                 screen.fill((0,0,0))
+        #                 automataArray
+        #                 clickedCell = automataArray[i][j][1]
+        #                 if clickedCell:
+        #                     automataArray[i][j][1] = False
+        #                 elif clickedCell == False:
+        #                     automataArray[i][j][1] = True
+                        
+        #                 drawAutomataArray(automataArray)
+
+        if event.type == pygame.MOUSEBUTTONDOWN:
+
+            isDragging = True
+            isDrawing = False
+            changedList = []
+
+            pygame.time.set_timer(DRAW_EVENT, 0)
+        if event.type == pygame.MOUSEBUTTONUP:
+            isDragging = False
+            changedList = []
+
+        if event.type == pygame.MOUSEMOTION and isDragging:
+
+            mousePos = pygame.mouse.get_pos()
+  
             for i, row in enumerate(grid):
                 for j, item in enumerate(row):
-                    if item[0].collidepoint(mousePos):
-                        screen.fill((0,0,0))
-                        automataArray
-                        clickedCell = automataArray[i][j][1]
-                        if clickedCell:
-                            automataArray[i][j][1] = False
-                        elif clickedCell == False:
-                            automataArray[i][j][1] = True
+                    if item[0].collidepoint(mousePos) and item[0] not in changedList:
+
+                        hoveredCellBool = automataArray[i][j][1]
                         
+                        if hoveredCellBool:
+                            automataArray[i][j][1] = False
+                            changedList.append(item[0])
+
+                        elif hoveredCellBool == False:
+                            automataArray[i][j][1] = True
+                            changedList.append(item[0])
+
                         drawAutomataArray(automataArray)
 
 
